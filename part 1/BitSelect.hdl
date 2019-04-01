@@ -1,0 +1,28 @@
+CHIP BitSelect 
+{
+    IN bit[3];
+    OUT out[8];
+
+PARTS:
+    Not(in=bit[0],out=x1);
+	Not(in=bit[1],out=x2);
+	Not(in=bit[2],out=x3);
+	
+	And(a=bit[1],b=bit[0],out=y1);
+	And(a=bit[1],b=x1,out=y2);
+	And(a=x2,b=bit[0],out=y3);
+	And(a=x2,b=x1,out=y4);
+	And(a=bit[1],b=bit[0],out=y5);
+	And(a=bit[1],b=x1,out=y6);
+	And(a=x2,b=bit[0],out=y7);
+	And(a=x2,b=x1,out=y8);
+	
+	And(a=bit[2],b=y1,out=out[7]);
+	And(a=bit[2],b=y2,out=out[6]);
+	And(a=bit[2],b=y3,out=out[5]);
+	And(a=bit[2],b=y4,out=out[4]);
+	And(a=x3,b=y5,out=out[3]);
+	And(a=x3,b=y6,out=out[2]);
+	And(a=x3,b=y7,out=out[1]);
+	And(a=x3,b=y8,out=out[0]);
+}	

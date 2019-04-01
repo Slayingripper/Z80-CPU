@@ -1,0 +1,27 @@
+CHIP ALUDataPath
+{
+    IN dataIn[8], carryIn, sums, ands, xors, ors, op1Load, op2Load, hiLo, notOp2, resLoad;
+    OUT dataOut[8], carryOut;
+
+
+PARTS:
+    // Don't forget to carry...
+    Register8(in=dataIn,load=op1Load,out=op1out);
+    Register8(in=dataIn,load=op2Load,out=op2out);
+
+    HiLoMux(in=op1out,sel=hiLo,out=x1);
+    HiLoMux(in=op2out,sel=hiLo,out=x2);
+    Not4(in=x2,out=nx1);
+
+    Mux4(a=x2,b=nx1,sel=notOp2,out=muxout);
+    Bit(in=carryY,load=resLoad,out=carrybit);
+    Mux(a=carryIn,b=carrybit,sel=hiLo,out=bunny);
+
+    ALUcore(a=x1,b=muxout,carryIn=bunny,sums=sums ,ands=ands,xors=xors,ors=ors,out=alu,carryOut=carryY);
+    Bit(in=carryY,load=hiLo,out=carryOut);
+
+    Not(in=hiLo,out=nhilo);
+    And(a=nhilo,b=resLoad,out=vas);
+    And(a=hiLo,b=resLoad,out=ier);
+    RegisterHiLo8(in=alu,loadLo=vas,loadHi=ier,out=dataOut);
+}

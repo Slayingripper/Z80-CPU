@@ -1,0 +1,15 @@
+CHIP RegisterHiLo8 {
+    IN in[4], loadLo, loadHi;
+    OUT out[8];
+
+    PARTS:
+
+	Bit(in=in[0],load=loadLo,out=out[0]);
+	Bit(in=in[1],load=loadLo,out=out[1]);
+	Bit(in=in[2],load=loadLo,out=out[2]);
+	Bit(in=in[3],load=loadLo,out=out[3]);
+    Bit(in=in[0],load=loadHi,out=out[4]);
+	Bit(in=in[1],load=loadHi,out=out[5]);
+	Bit(in=in[2],load=loadHi,out=out[6]);
+	Bit(in=in[3],load=loadHi,out=out[7]);
+}

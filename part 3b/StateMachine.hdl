@@ -1,0 +1,26 @@
+CHIP StateMachine
+{
+    IN reset;
+    OUT state[2];
+
+PARTS:
+DFF(in=x1, out=x2);
+Not(in=x2, out=x1);
+DFF(in=x3, out=x4);
+Not(in=x4, out=x5);
+Not(in=x5, out=x3);
+Xor(a=x2, b=x4, out=xor1);
+
+DFF(in=staty, out=dff1, out=chroma);
+HalfAdder(a=dff1, b=true, carry=carry0, sum=addx1);
+Mux(a=addx1, b=false, sel=reset, out=staty);
+
+DFF(in=staty1, out=dff2, out=cutter, out=chroma1);
+HalfAdder(a=dff2, b=true, carry=carry1, sum=aids);
+Mux(a=cutter, b=aids, sel=xor1, out=next);
+Mux(a=next, b=false, sel=reset, out=staty1);
+
+Mux(a=chroma, b=false, sel=reset, out=state[0]);
+Mux(a=chroma1, b=false, sel=reset, out=state[1]);
+	
+}

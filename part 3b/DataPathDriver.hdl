@@ -1,0 +1,27 @@
+CHIP DataPathDriver
+{
+    IN reset,a[8],b[8],subtract;
+    OUT sum[8];
+
+PARTS:
+    
+		StateMachine(reset=reset,state[0]=x1,state[1]=x2);
+
+		And(a=x1,b=x2,out=andy);
+
+		
+		Mux(a=false,b=true,sel=x2,out=muxy);
+
+		
+		Not(in=x2,out=y2);
+
+		And(a=x1,b=y2,out=op2);
+
+		Or(a=x1,b=x2,out=y4);
+
+		Not(in=y4,out=op1);
+
+		Mux8(a=a,b=b,sel=x1,out=mux8);
+
+		ALUDataPath(dataIn=mux8,carryIn=subtract,sums=true,ands=false,xors=false,ors=false,op1Load=op1,op2Load=op2,hiLo=andy,notOp2=subtract,resLoad=muxy,dataOut=sum, carryOut=false);
+}

@@ -1,0 +1,25 @@
+CHIP ALUcore {
+	IN a[4], b[4], carryIn, sums, ands, xors, ors;
+	OUT out[4], carryOut;
+
+PARTS:
+	
+	And4(a=a,b=b,out=outA);
+	Xor4(a=a,b=b,out=outX);
+	Or4(a=a,b=b,out=outO);
+	Add4(a=a,b=b,carryIn=carryIn,carryOut=carry1,out=outA4);
+	
+	Mux4(a=false,b=outA,sel=ands,out=x1);
+	Mux4(a=false,b=outO,sel=ors,out=x2);
+	Mux4(a=false,b=outX,sel=xors,out=x3);
+	Mux4(a=false,b=outA4,sel=sums,out=x4);
+	
+	Mux(a=false,b=carry1,sel=sums,out=carryOut);
+	
+	Or4(a=x1,b=x2,out=y1);
+	Or4(a=y1,b=x3,out=y2);
+	Or4(a=y2,b=x4,out=y3);
+	Or4(a=y3,b=y3,out=out);
+	
+	
+}

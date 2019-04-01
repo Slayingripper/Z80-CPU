@@ -1,0 +1,45 @@
+// This file is adapted from part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+
+/**
+ * 8-way 8-bit multiplexor:
+ * out = a if sel == 000
+ *       b if sel == 001
+ *       etc.
+ *       h if sel == 111
+ */
+
+CHIP Mux8Way8 {
+    IN a[8], b[8], c[8], d[8],
+       e[8], f[8], g[8], h[8],
+       sel[3];
+    OUT out[8];
+
+    PARTS:
+   
+   Mux8Way(a=a[0], b=b[0], c=c[0], d=d[0],
+			e=e[0], f=f[0], g=g[0], h=h[0],
+			sel=sel, out=out[0]);
+	Mux8Way(a=a[1], b=b[1], c=c[1], d=d[1],
+			e=e[1], f=f[1], g=g[1], h=h[1],
+			sel=sel, out=out[1]);
+	Mux8Way(a=a[2], b=b[2], c=c[2], d=d[2],
+			e=e[2], f=f[2], g=g[2], h=h[2],
+			sel=sel, out=out[2]);
+	Mux8Way(a=a[3], b=b[3], c=c[3], d=d[3],
+			e=e[3], f=f[3], g=g[3], h=h[3],
+			sel=sel, out=out[3]);
+	Mux8Way(a=a[4], b=b[4], c=c[4], d=d[4],
+			e=e[4], f=f[4], g=g[4], h=h[4],
+			sel=sel, out=out[4]);
+	Mux8Way(a=a[5], b=b[5], c=c[5], d=d[5],
+			e=e[5], f=f[5], g=g[5], h=h[5],
+			sel=sel, out=out[5]);
+	Mux8Way(a=a[6], b=b[6], c=c[6], d=d[6],
+			e=e[6], f=f[6], g=g[6], h=h[6],
+			sel=sel, out=out[6]);
+	Mux8Way(a=a[7], b=b[7], c=c[7], d=d[7],
+			e=e[7], f=f[7], g=g[7], h=h[7],
+			sel=sel, out=out[7]);			
+}
